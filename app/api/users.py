@@ -1,5 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
+from ..deps import authenticate_token
 from ..models import User
 
 router = APIRouter()
@@ -10,7 +11,7 @@ def read_users():
     return []
 
 
-@router.post("/users/")
+@router.post("/users/", dependencies = [Depends(authenticate_token)])
 def create_user(user: User):
     return user
 
