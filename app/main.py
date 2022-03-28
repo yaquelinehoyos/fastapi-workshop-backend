@@ -11,13 +11,17 @@ def create_db_and_tables():
     SQLModel.metadata.create_all(db.engine)
 
 
-app = FastAPI()
+app = FastAPI(
+    title="My Super App",
+    version="0.3.0",
+)
 
 origins = [
     "http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",
     "http://localhost",
     "http://localhost:8080",
+    "https://fastapiworkshop.yaquelinehoyos.com"
 ]
 
 app.add_middleware(
@@ -29,8 +33,8 @@ app.add_middleware(
 )
 
 
-app.include_router(users.router)
-app.include_router(items.router)
+app.include_router(users.router, tags=["users"])
+app.include_router(items.router, tags=["items"])
 
 
 @app.on_event("startup")

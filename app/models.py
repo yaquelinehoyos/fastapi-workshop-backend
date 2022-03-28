@@ -23,4 +23,10 @@ class User(UserBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     is_active: bool = True
     items: List[Item] = Relationship(back_populates="user")
+
+
+class UserWithItems(UserBase):
+    id: int
+    is_active: bool
+    items: List[Item]
     
